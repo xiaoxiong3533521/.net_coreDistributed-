@@ -15,6 +15,7 @@ namespace IdentityServerCenter
 {
     public class Startup
     {
+        //ddd
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
