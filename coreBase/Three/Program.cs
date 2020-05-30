@@ -22,6 +22,7 @@ namespace Three
                 .ConfigureWebHostDefaults(webBuilder =>  //使用一些默认值
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseKestrel();  //这个方法可以不写，默认也会调用
                 });
     }
 }
