@@ -56,7 +56,7 @@ namespace Three
                     pattern:"{controller=Home}/{action=Index}/{id?}"
                 );  //这种是路由表的形式
 
-                //endpoints.MapControllers();  //这种地址适合在控制器里面配置路由地址
+                endpoints.MapControllers();  //这种地址适合在控制器里面配置路由地址
             });
         }
     }
