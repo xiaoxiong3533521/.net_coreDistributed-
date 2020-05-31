@@ -3,16 +3,20 @@ using Three.Services;
 
 
 namespace Three.Controllers{
-    [Route("{controller}")]
-    public class HomeControllers:Controller{
-        public HomeControllers(IClock clock){
+
+    public class HomeController:Controller{
+        public HomeController(IClock clock){
             
         }
 
-[Route("index")]
+
         public JsonResult Index()
         {
             return Json("{'aa':'cc'}");
+        }
+
+        public ActionResult xxx(){
+            return Content("ccc");
         }
     }
 }

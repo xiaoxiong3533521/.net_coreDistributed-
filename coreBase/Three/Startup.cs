@@ -8,12 +8,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Three.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace Three
 {
     ///运行时通过约定，在项目启动的时候会调用这里面的两个方法
     public class Startup
     {
+         public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         //主要配置一些依赖注入相关的东西，.net core 已经带有IOC相关的了，不需要使用第三方的库
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -23,6 +31,8 @@ namespace Three
             //Scoped   每个WEB请求一个实例
             //Singleton  单个实例
             services.AddControllers();  //这种是比较推荐的，比较轻，没有视图，非常适合WEB API ，不在推荐使用mvc
+            //services.AddMvc();
+            //services.AddControllersWithViews();
             services.AddSingleton<IClock,ChinaClock>();  //如果Iclock实例请求的时候，就返回ChianClock
         }
 
@@ -43,20 +53,13 @@ namespace Three
 
             //路由
             app.UseRouting();
-
+            //app.UseAuthorization();
             //端点
-            app.UseEndpoints(endpoints =>
+             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapGet("/", async context =>
-                // {
-                //     await context.Response.WriteAsync("Hello World!");
-                // });
                 endpoints.MapControllerRoute(
-                    name:"default",
-                    pattern:"{controller=Home}/{action=Index}/{id?}"
-                );  //这种是路由表的形式
-
-                endpoints.MapControllers();  //这种地址适合在控制器里面配置路由地址
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
